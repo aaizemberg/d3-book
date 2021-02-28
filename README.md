@@ -16,3 +16,11 @@ Always find the latest book info at: [d3book.com](http://d3book.com)
 This is version **2.0** of the examples, which should sync perfectly with what appears in the second edition. (Fingers crossed.)
 
 For code shown in the **first edition of the book** (published March 2013), find version 1.0 on [the releases page](https://github.com/alignedleft/d3-book/releases).
+
+## 2021
+
+Homework for my ITBA students.
+
+Modify this repository so that all examples work with the latest version of d3.js (d3@6)
+
+I am going to invite you as collaborators. In each class we are going to comment on the changes we had to make so that everything works perfectly.
