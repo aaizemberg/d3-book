@@ -24,7 +24,7 @@ Homework for my ITBA students.
 Modify this repository so that all examples work with the latest version of d3.js (d3@6)
 
 ```
- <script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="https://d3js.org/d3.v6.min.js"></script>
 ```
 
 I am going to invite you as collaborators. In each class we are going to comment on the changes we had to make so that everything works perfectly.
