@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Line chart</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
 		<style type="text/css">
 
 			.line {
@@ -21,7 +21,7 @@
 			var w = 800;
 			var h = 300;
 			var padding = 40;
-			
+
 			var dataset, xScale, yScale, line;  //Empty, for now
 
 			//Function for converting CSV values from strings to Dates and numbers
@@ -56,7 +56,7 @@
 				line = d3.line()
 							.x(function(d) { return xScale(d.date); })
 							.y(function(d) { return yScale(d.average); });
-				
+
 				//Create SVG element
 				var svg = d3.select("body")
 							.append("svg")
@@ -70,7 +70,7 @@
 					.attr("d", line);
 
 			});
-			
+
 		</script>
 	</body>
 </html>

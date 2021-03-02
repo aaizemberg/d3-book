@@ -3,24 +3,24 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Adding values and elements to a chart</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */
 		</style>
 	</head>
 	<body>
-	
+
 		<p>Click on this text to add a new data value to the chart!</p>
-			
+
 		<script type="text/javascript">
 
 			//Width and height
 			var w = 600;
 			var h = 250;
-			
+
 			var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13,
 							11, 12, 15, 20, 18, 17, 16, 18, 23, 25 ];
-			
+
 			var xScale = d3.scaleBand()
 							.domain(d3.range(dataset.length))
 							.rangeRound([0, w])
@@ -29,7 +29,7 @@
 			var yScale = d3.scaleLinear()
 							.domain([0, d3.max(dataset)])
 							.range([0, h]);
-			
+
 			//Create SVG element
 			var svg = d3.select("body")
 						.append("svg")
@@ -77,7 +77,7 @@
 
 
 
-			//On click, update with new data			
+			//On click, update with new data
 			d3.select("p")
 				.on("click", function() {
 
@@ -85,7 +85,7 @@
 					var maxValue = 25;
 					var newNumber = Math.floor(Math.random() * maxValue);	//New random integer (0-24)
 					dataset.push(newNumber);			 			 		//Add new number to array
-					
+
 					//Update scale domains
 					xScale.domain(d3.range(dataset.length));	//Recalibrate the x scale domain, given the new length of dataset
 					yScale.domain([0, d3.max(dataset)]);		//Recalibrate the y scale domain, given the new max value in dataset
@@ -94,7 +94,7 @@
 					var bars = svg.selectAll("rect")			//Select all bars
 						.data(dataset);							//Re-bind data to existing bars, return the 'update' selection
 																//'bars' is now the update selection
-					
+
 					//Enter…
 					bars.enter()								//References the enter selection (a subset of the update selection)
 						.append("rect")							//Creates a new rect
@@ -145,7 +145,7 @@
 
 				});
 
-			
+
 		</script>
 	</body>
 </html>

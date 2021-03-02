@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Time axis, prettier</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
 		<style type="text/css">
-			/* No style rules here yet */		
+			/* No style rules here yet */
 		</style>
 	</head>
 	<body>
@@ -15,7 +15,7 @@
 			var w = 500;
 			var h = 300;
 			var padding = 40;
-			
+
 			var dataset, xScale, yScale, xAxis, yAxis;  //Empty, for now
 
 			//For converting strings to Dates
@@ -104,13 +104,13 @@
 				   		return yScale(d.Amount);
 				   })
 				   .attr("r", 2);
-	   			
+
 	   			//Create X axis
 	   			svg.append("g")
 	   				.attr("class", "axis")
 	   				.attr("transform", "translate(0," + (h - padding) + ")")
 	   				.call(xAxis);
-	   			
+
 	   			//Create Y axis
 	   			svg.append("g")
 	   				.attr("class", "axis")
@@ -118,7 +118,7 @@
 	   				.call(yAxis);
 
 			});
-			
+
 		</script>
 	</body>
 </html>

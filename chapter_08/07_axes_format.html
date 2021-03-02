@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Test of formatted axis values</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */
 		</style>
@@ -15,7 +15,7 @@
 			var w = 500;
 			var h = 300;
 			var padding = 30;
-			
+
 			/*
 			//Static dataset
 			var dataset = [
@@ -24,7 +24,7 @@
 							[600, 150]
 						  ];
 			*/
-			
+
 			//Dynamic, random dataset
 			var dataset = [];					//Initialize empty array
 			var numDataPoints = 50;				//Number of dummy data points to create
@@ -103,13 +103,13 @@
 			   .attr("font-size", "11px")
 			   .attr("fill", "red");
 		  	*/
-			
+
 			//Create X axis
 			svg.append("g")
 				.attr("class", "axis")
 				.attr("transform", "translate(0," + (h - padding) + ")")
 				.call(xAxis);
-			
+
 			//Create Y axis
 			svg.append("g")
 				.attr("class", "axis")

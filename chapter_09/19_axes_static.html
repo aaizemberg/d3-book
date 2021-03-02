@@ -3,22 +3,22 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Transitioning points to randomized values</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */
 		</style>
 	</head>
 	<body>
-	
+
 		<p>Click on this text to update the chart with new data values as many times as you like!</p>
-	
+
 		<script type="text/javascript">
 
 			//Width and height
 			var w = 500;
 			var h = 300;
 			var padding = 30;
-			
+
 			//Dynamic, random dataset
 			var dataset = [];											//Initialize empty array
 			var numDataPoints = 50;										//Number of dummy data points to create
@@ -66,13 +66,13 @@
 			   		return yScale(d[1]);
 			   })
 			   .attr("r", 2);
-			
+
 			//Create X axis
 			svg.append("g")
 				.attr("class", "axis")
 				.attr("transform", "translate(0," + (h - padding) + ")")
 				.call(xAxis);
-			
+
 			//Create Y axis
 			svg.append("g")
 				.attr("class", "axis")
@@ -81,7 +81,7 @@
 
 
 
-			//On click, update with new data			
+			//On click, update with new data
 			d3.select("p")
 				.on("click", function() {
 
@@ -94,7 +94,7 @@
 						var newNumber2 = Math.floor(Math.random() * maxRange);	//New random integer
 						dataset.push([newNumber1, newNumber2]);					//Add new number to array
 					}
-					
+
 					//Update scale domains
 					xScale.domain([0, d3.max(dataset, function(d) { return d[0]; })]);
 					yScale.domain([0, d3.max(dataset, function(d) { return d[1]; })]);
