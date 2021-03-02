@@ -3,13 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Loading oceans GeoJSON data</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
 		<style type="text/css">
-			/* No style rules here yet */		
+			/* No style rules here yet */
 		</style>
 	</head>
 	<body>
-		<script type="text/javascript">
+		<script>
 
 			//Width and height
 			var w = 500;
@@ -32,7 +32,7 @@
 
 			//Load in GeoJSON data
 			d3.json("oceans.json", function(json) {
-				
+
 				//Bind data and create one path per GeoJSON feature
 				svg.selectAll("path")
 				   .data(json.features)
@@ -40,9 +40,9 @@
 				   .append("path")
 				   .attr("d", path)
 				   .style("fill", "steelblue");
-		
+
 			});
-			
+
 		</script>
 	</body>
 </html>
