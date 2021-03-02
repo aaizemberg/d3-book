@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Click to transition</title>
-		<script type="text/javascript" src="../d3.js"></script>
+        <script src="https://d3js.org/d3.v6.min.js"></script>
 		<style type="text/css">
 
 			h1 {
@@ -24,13 +24,13 @@
 	</head>
 	<body>
 		<h1>Monthly Number of Electric-Drive Vehicles Sold in the U.S. (by Type): January 2005&ndash;February 2017</h1>
-		<script type="text/javascript">
+		<script>
 
 			//Width and height
 			var w = 1400;
 			var h = 300;
 			var padding = 20;
-			
+
 			var dataset, xScale, yScale, xAxis, yAxis, area;  //Empty, for now
 
 			//For converting strings to Dates
@@ -38,7 +38,7 @@
 
 			//For converting Dates to strings
 			var formatTime = d3.timeFormat("%b %Y");
-			
+
 			//Define key function, to be used when binding data
 			var key = function(d) {
 				return d.key;
@@ -62,28 +62,28 @@
 					//Parse each row of the CSV into an array of string values
 					var rows = d3.csvParseRows(response.responseText);
 					// console.log(rows);
-					
+
 					//Make dataset an empty array, so we can start adding values
 					dataset = [];
-					
+
 					//Loop once for each row of the CSV, starting at row 3,
 					//since rows 0-2 contain only vehicle info, not sales values.
 					for (var i = 3; i < rows.length; i++) {
-						
+
 						//Create a new object
 						dataset[i - 3] = {
 							date: parseTime(rows[i][0])  //Make a new Date object for each year + month
 						};
-						
+
 						//Loop once for each vehicle in this row (i.e., for this date)
 						for (var j = 1; j < rows[i].length; j++) {
-						
+
 							var make		= rows[0][j];  //'Make' from 1st row in CSV
 							var model		= rows[1][j];  //'Model' from 2nd row in CSV
 							var makeModel	= rows[0][j] + " " + rows[1][j];  //'Make' + 'Model' will serve as our key
 							var type 		= rows[2][j];  //'Type' from 3rd row in CSV
 							var sales		= rows[i][j];  //Sales value for this vehicle and month
-							
+
 							//If sales value exists…
 							if (sales) {
 								sales = parseInt(sales);  //Convert from string to int
@@ -98,7 +98,7 @@
 								"type": type,
 								"sales": sales
 							};
-							
+
 						}
 
 					}
@@ -116,7 +116,7 @@
 					//get all the keys (make + model), but toss out 'date'
 					var keys = Object.keys(dataset[0]).slice(1);
 					// console.log(keys);
-					
+
 					//Tell stack function where to find the keys
 					vehicleStack.keys(keys)
 						.value(function value(d, key) {
@@ -126,23 +126,23 @@
 					//Stack the data and log it out
 					var vehicleSeries = vehicleStack(dataset);
 					// console.log(vehicleSeries);
-					
-					
-					
+
+
+
 					//
 					//	TYPE DATA SERIES
 					//
-					
+
 					//The goal here is to make a totally separate data set that
 					//includes just monthly totals for each `type` (HEV, PHEV, BEV, FCEV).
-					
+
 					//Make typeDataset an empty array, so we can start adding values
 					typeDataset = [];
-					
+
 					//Loop once for each row of the CSV, starting at row 3,
 					//since rows 0-2 contain only vehicle info, not sales values.
 					for (var i = 3; i < rows.length; i++) {
-						
+
 						//Create a new object
 						typeDataset[i - 3] = {
 							date: parseTime(rows[i][0]),  //Make a new Date object for each year + month
@@ -151,13 +151,13 @@
 							"BEV": 0,
 							"FCEV": 0
 						};
-						
+
 						//Loop once for each vehicle in this row (i.e., for this date)
 						for (var j = 1; j < rows[i].length; j++) {
-						
+
 							var type 		= rows[2][j];  //'Type' from 3rd row in CSV
 							var sales		= rows[i][j];  //Sales value for this vehicle and month
-							
+
 							//If sales value exists…
 							if (sales) {
 								sales = parseInt(sales);  //Convert from string to int
@@ -167,7 +167,7 @@
 
 							//Add sales value to existing sum
 							typeDataset[i - 3][type] += sales;
-							
+
 						}
 
 					}
@@ -193,7 +193,7 @@
 					//
 					// MAKE THE CHART
 					//
-				
+
 					//Create scale functions
 					xScale = d3.scaleTime()
 							   .domain([
@@ -201,48 +201,48 @@
 									d3.max(dataset, function(d) { return d.date; })
 								])
 							   .range([padding, w - padding * 2]);
-				
+
 					yScale = d3.scaleLinear()
 								.domain([
 									0,
 									d3.max(dataset, function(d) {
 										var sum = 0;
-			
+
 										//Loops once for each row, to calculate
 										//the total (sum) of sales of all vehicles
 										for (var i = 0; i < keys.length; i++) {
 											sum += d[keys[i]].sales;
 										};
-			
+
 										return sum;
 									})
 								])
 								.range([h - padding, padding / 2])
 								.nice();
-				
+
 					//Define axes
 					xAxis = d3.axisBottom()
 							   .scale(xScale)
 							   .ticks(10)
 							   .tickFormat(formatTime);
-				
+
 					//Define Y axis
 					yAxis = d3.axisRight()
 							   .scale(yScale)
 							   .ticks(5);
-				
+
 					//Define area generator
 					area = d3.area()
 								.x(function(d) { return xScale(d.data.date); })
 								.y0(function(d) { return yScale(d[0]); })
 								.y1(function(d) { return yScale(d[1]); });
-				
+
 					//Create SVG element
 					var svg = d3.select("body")
 								.append("svg")
 								.attr("width", w)
 								.attr("height", h);
-				
+
 					//Create areas for individual VEHICLES
 					svg.append("g")
 						.attr("id", "vehicles")
@@ -256,14 +256,14 @@
 
 							//Which vehicle is this?
 							var thisKey = d.key;
-							
+
 							//What 'type' is this vehicle?
 							var thisType = d[0].data[thisKey].type;
 							// console.log(thisType);
 
 							//New color var
 							var color;
-							
+
 							switch (thisType) {
 								case "HEV":
 									color = d3.schemeCategory20[0];
@@ -278,14 +278,14 @@
 									color = d3.schemeCategory20[3];
 									break;
 							}
-							
+
 							return color;
 						})
 						.append("title")  //Make tooltip
 						.text(function(d) {
 							return d.key;
 						});
-						
+
 					//Create areas for TYPES
 					svg.append("g")
 						.attr("id", "types")
@@ -299,7 +299,7 @@
 
 							//Which type is this?
 							var thisType = d.key;
-							
+
 							//New color var
 							var color;
 
@@ -317,18 +317,18 @@
 									color = "rgb(29, 223, 163)";
 									break;
 							}
-							
+
 							return color;
 						})
 						.on("click", function(d) {
-							
+
 							//Which type was clicked?
 							var thisType = d.key;
-							
-							//Generate a new data set with all-zero values, 
+
+							//Generate a new data set with all-zero values,
 							//except for this type's data
 							var thisTypeDataset = [];
-							
+
 							for (var i = 0; i < typeDataset.length; i++) {
 								thisTypeDataset[i] = {
 									date: 		typeDataset[i].date,
@@ -339,13 +339,13 @@
 									[thisType]:	typeDataset[i][thisType]  //Overwrites the appropriate zero value above
 								}
 							}
-							
+
 							// console.log(thisTypeDataset);
-							
+
 							//Stack the data (even though there's now just one "layer") and log it out
 							var thisTypeSeries = typeStack(thisTypeDataset);
 							// console.log(thisTypeSeries);
-							
+
 							//Bind the new data set to paths, overwriting old bound data.
 							var paths = d3.selectAll("#types path")
 								.data(thisTypeSeries, key);
@@ -357,17 +357,17 @@
 							var areaTransitions = paths.transition()
 								.duration(1000)
 								.attr("d", area);
-								
+
 							//Update scale
 							yScale.domain([
 									0,
 									d3.max(thisTypeDataset, function(d) {
 										var sum = 0;
-			
+
 										//Calculate the total (sum) of sales of this type,
 										//ignoring the others (for now)
 										sum += d[thisType];
-										
+
 										return sum;
 									})
 								]);
@@ -378,19 +378,19 @@
 								.delay(200)
 								.duration(1000)
 								.attr("d", area);
-								
+
 						})
 						.append("title")  //Make tooltip
 						.text(function(d) {
 							return d.key;
 						});
-				
+
 					//Create axes
 					svg.append("g")
 						.attr("class", "axis x")
 						.attr("transform", "translate(0," + (h - padding) + ")")
 						.call(xAxis);
-				
+
 					svg.append("g")
 						.attr("class", "axis y")
 						.attr("transform", "translate(" + (w - padding * 2) + ",0)")
@@ -399,7 +399,7 @@
 
 
 				});
-			
+
 		</script>
 	</body>
 </html>
