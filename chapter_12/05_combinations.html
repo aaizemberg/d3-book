@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Using radio buttons to trigger different combinations of filters</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
 		<style type="text/css">
-			
+
 			p {
 				font-family: Helvetica, sans-serif;
 				font-size: 12px;
@@ -26,13 +26,13 @@
 			<input type="radio" name="filterPreset" value="quadrants"> Quadrants
 		</p>
 
-		<script type="text/javascript">
+		<script>
 
 			//Width and height
 			var w = 600;
 			var h = 300;
 			var padding = 40;
-			
+
 			//Dynamic, random dataset
 			var dataset = [];					//Initialize empty array
 			var numDataPoints = 200;			//Number of dummy data points to create
@@ -81,13 +81,13 @@
 			   		return yScale(d[1]);
 			   })
 			   .attr("r", 2.5);
-			
+
 			//Create X axis
 			svg.append("g")
 				.attr("class", "axis")
 				.attr("transform", "translate(0," + (h - padding) + ")")
 				.call(xAxis);
-			
+
 			//Create Y axis
 			svg.append("g")
 				.attr("class", "axis")
@@ -110,7 +110,7 @@
 					switch (view) {
 
 						case "center":
-							
+
 							var distance = 300;
 
 							allCircles.filter(function(d) {
@@ -121,7 +121,7 @@
 							break;
 
 						case "edges":
-							
+
 							var distance = 300;
 
 							allCircles.filter(function(d) {
@@ -132,13 +132,13 @@
 							break;
 
 						case "quadrants":
-							
+
 							//Top left
 							allCircles.filter(function(d) {
 									return d[0] <= midpoint && d[1] >= midpoint;
 								})
 								.attr("fill", colors[0]);
-							
+
 							//Top right
 							allCircles.filter(function(d) {
 									return d[0] > midpoint && d[1] >= midpoint;

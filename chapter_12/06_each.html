@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Using each() to run an arbitrary function on each element in a selection</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */
 		</style>
@@ -14,13 +14,13 @@
 			<input type="button" value="Do something for each circle">
 		</p>
 
-		<script type="text/javascript">
+		<script>
 
 			//Width and height
 			var w = 600;
 			var h = 300;
 			var padding = 40;
-			
+
 			//Dynamic, random dataset
 			var dataset = [];					//Initialize empty array
 			var numDataPoints = 200;			//Number of dummy data points to create
@@ -70,13 +70,13 @@
 			   })
 			   .attr("r", 2.5)
 			   .attr("fill", "black");
-			
+
 			//Create X axis
 			svg.append("g")
 				.attr("class", "axis")
 				.attr("transform", "translate(0," + (h - padding) + ")")
 				.call(xAxis);
-			
+
 			//Create Y axis
 			svg.append("g")
 				.attr("class", "axis")

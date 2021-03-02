@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Filtering selections based on slider input values</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
 		<style type="text/css">
-			
+
 			p {
 				display: inline-block;
 			}
@@ -22,17 +22,17 @@
 		</style>
 	</head>
 	<body>
-	
+
 		<p>
 			<input id="slider" type="range" min="0" max="25" step="1" value="0" orient="vertical">
 		</p>
-			
-		<script type="text/javascript">
+
+		<script>
 
 			//Width and height
 			var w = 600;
 			var h = 250;
-			
+
 			var dataset = [ { key: 0, value: 5 },		//dataset is now an array of objects.
 							{ key: 1, value: 10 },		//Each object has a 'key' and a 'value'.
 							{ key: 2, value: 13 },
@@ -53,21 +53,21 @@
 							{ key: 17, value: 18 },
 							{ key: 18, value: 23 },
 							{ key: 19, value: 25 } ];
-			
+
 			var xScale = d3.scaleBand()
 							.domain(d3.range(dataset.length))
 							.rangeRound([0, w])
 							.paddingInner(0.05);
-			
+
 			var yScale = d3.scaleLinear()
 							.domain([0, d3.max(dataset, function(d) { return d.value; })])
 							.range([0, h]);
-			
+
 			//Define key function, to be used when binding data
 			var key = function(d) {
 				return d.key;
 			};
-			
+
 			//Create SVG element
 			var svg = d3.select("body")
 						.append("svg")
@@ -120,7 +120,7 @@
 				.on("change", function() {
 
 					var threshold = +d3.select(this).node().value;
-					
+
 					svg.selectAll("rect")
 						.attr("fill", function(d) {
 							return "rgb(0, 0, " + (d.value * 10) + ")";
@@ -132,7 +132,7 @@
 
 				});
 
-			
+
 		</script>
 	</body>
 </html>
